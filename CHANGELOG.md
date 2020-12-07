@@ -8,4 +8,6 @@
 
 #### Fixes
 
+- `_uniques` now ignores removing top level modules.
+
 # 1.0.0

@@ -171,7 +171,10 @@ def drop(path, limit = 0):
             if not key.startswith(module.__name__):
                 continue
             del sys.modules[key]
-        del _uniques[module]
+        try:
+            del _uniques[module]
+        except KeyError:
+            pass
         # we can't use index as the module's `drop` may
         # subsequently rid others, invalidating indexes
         _modules.remove(module)
