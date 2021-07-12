@@ -8,7 +8,7 @@ import itertools
 from . import helpers
 
 
-__all__ = ('origin', 'load', 'drop')
+__all__ = ('origin', 'load', 'drop', 'get')
 
 
 _modules = []
@@ -184,3 +184,23 @@ def drop(path, limit = 0):
     result = helpers.execute_before(result, cleanup)
 
     return result
+
+
+def get(name, limit = 1):
+
+    """
+    Get the ``limit``\th module of ``name``.
+    """
+
+    name = str(limit - 1) + '.' + name
+
+    for module in _modules:
+        if not module.__name__.endswith(name):
+            continue
+        limit -= 1
+        if not limit:
+            break
+    else:
+        raise ValueError('not found')
+
+    return module
